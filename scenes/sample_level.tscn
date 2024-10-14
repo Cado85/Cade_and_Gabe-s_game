@@ -1,16 +1,15 @@
-[gd_scene load_steps=15 format=4 uid="uid://dfae2odowmuk4"]
+[gd_scene load_steps=14 format=4 uid="uid://dwnqb67vobrg3"]
 
-[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_c7ip2"]
-[ext_resource type="PackedScene" uid="uid://bha6ndshtdcwu" path="res://scenes/player.tscn" id="1_fdvmw"]
-[ext_resource type="Texture2D" uid="uid://b1rbx1h4f2tx6" path="res://assets/sprites/world_tileset.png" id="1_hglxa"]
-[ext_resource type="FontFile" uid="uid://ch5vmdymlxiht" path="res://assets/fonts/PixelOperator8.ttf" id="2_je5kt"]
-[ext_resource type="PackedScene" uid="uid://dqcq73wpst1lp" path="res://scenes/platform.tscn" id="3_wl74w"]
-[ext_resource type="PackedScene" uid="uid://7eaybf4xrb1t" path="res://scenes/coin.tscn" id="4_lpes3"]
-[ext_resource type="PackedScene" uid="uid://dl26v1pc4bsru" path="res://scenes/killzone.tscn" id="4_u00r0"]
-[ext_resource type="PackedScene" uid="uid://bo03ivl77alvv" path="res://scenes/slime.tscn" id="6_3dwed"]
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_83sy0"]
+[ext_resource type="FontFile" uid="uid://ch5vmdymlxiht" path="res://assets/fonts/PixelOperator8.ttf" id="2_cfwxx"]
+[ext_resource type="Texture2D" uid="uid://b1rbx1h4f2tx6" path="res://assets/sprites/world_tileset.png" id="3_6165f"]
+[ext_resource type="PackedScene" uid="uid://dl26v1pc4bsru" path="res://scenes/killzone.tscn" id="6_hq6v5"]
+[ext_resource type="PackedScene" uid="uid://dqcq73wpst1lp" path="res://scenes/platform.tscn" id="7_mnxm6"]
+[ext_resource type="PackedScene" uid="uid://s37st3crdok" path="res://scenes/player1.tscn" id="8_urnp1"]
+[ext_resource type="PackedScene" uid="uid://iggvhpawlya0" path="res://scenes/player2.tscn" id="9_4lhlx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k04e0"]
-texture = ExtResource("1_hglxa")
+texture = ExtResource("3_6165f")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0 = 0
@@ -220,24 +219,13 @@ position = Vector2(7, -39)
 
 [node name="GameManager" type="Node" parent="."]
 unique_name_in_owner = true
-script = ExtResource("1_c7ip2")
-
-[node name="ScoreLabel" type="Label" parent="GameManager"]
-offset_left = 23.0
-offset_top = -87.0
-offset_right = 195.0
-offset_bottom = -37.0
-theme_override_colors/font_color = Color(0.4, 0.741176, 0.498039, 1)
-theme_override_fonts/font = ExtResource("2_je5kt")
-theme_override_font_sizes/font_size = 8
-text = "You collected 0 coins"
-vertical_alignment = 1
+script = ExtResource("1_83sy0")
 
 [node name="TileMap" type="Node" parent="."]
 
 [node name="Layer1" type="TileMapLayer" parent="TileMap"]
 use_parent_material = true
-tile_map_data = PackedByteArray("AAD+/wMAAAAAAAAAAAD//wMAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAD9/wIAAAAAAAAAAAD8/wIAAAAAAAAAAAD7/wIAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAD+/wMAAAAAAAAAAAD//wMAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAD9/wIAAAAAAAAAAAD8/wIAAAAAAAAAAAD7/wIAAAAAAAAAAAACAAIAAAAAAAAAAAD6/wIAAAAAAAAAAAD5/wIAAAAAAAAAAAD4/wIAAAAAAAAAAAD3/wIAAAAAAAAAAAD2/wIAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_skpq5")
 
 [node name="Background" type="TileMapLayer" parent="TileMap"]
@@ -249,20 +237,7 @@ use_parent_material = true
 tile_map_data = PackedByteArray("AAD7/wQAAAAAAA0AAAD8/wQAAAAAAA0AAAD9/wQAAAAAAA0AAAD+/wQAAAAAAA0AAAD+/wUAAAAAAA0AAAD//wQAAAAAAA0AAAD//wUAAAAAAA0AAAAAAAQAAAAAAA0AAAAAAAUAAAAAAA0AAAABAAQAAAAAAA0AAAABAAUAAAAAAA0AAAACAAQAAAAAAA0AAAACAAUAAAAAAA0AAAADAAQAAAAAAA0AAAADAAUAAAAAAA0AAAAEAAQAAAAAAA0AAAAEAAUAAAAAAA0AAAAFAAQAAAAAAA0AAAAFAAUAAAAAAA0AAAAGAAQAAAAAAA0AAAAGAAUAAAAAAA0AAAAHAAQAAAAAAA0AAAAHAAUAAAAAAA0AAAAIAAQAAAAAAA0AAAAIAAUAAAAAAA0AAAAJAAQAAAAAAA0AAAAJAAUAAAAAAA0AAAAKAAQAAAAAAA0AAAAKAAUAAAAAAA0AAAALAAQAAAAAAA0AAAALAAUAAAAAAA0AAAAMAAQAAAAAAA0AAAAMAAUAAAAAAA0AAAANAAQAAAAAAA0AAAANAAUAAAAAAA0AAAD3/wQAAAAAAA0AAAD3/wUAAAAAAA0AAAD4/wQAAAAAAA0AAAD4/wUAAAAAAA0AAAD5/wQAAAAAAA0AAAD5/wUAAAAAAA0AAAD6/wQAAAAAAA0AAAD6/wUAAAAAAA0AAAD7/wUAAAAAAA0AAAD8/wUAAAAAAA0AAAD9/wUAAAAAAA0AAAD3/wYAAAAAAA0AAAD4/wYAAAAAAA0AAAD5/wYAAAAAAA0AAAD6/wYAAAAAAA0AAAD7/wYAAAAAAA0AAAD8/wYAAAAAAA0AAAD9/wYAAAAAAA0AAAD+/wYAAAAAAA0AAAD//wYAAAAAAA0AAAAAAAYAAAAAAA0AAAABAAYAAAAAAA0AAAACAAYAAAAAAA0AAAADAAYAAAAAAA0AAAAEAAYAAAAAAA0AAAAFAAYAAAAAAA0AAAAGAAYAAAAAAA0AAAAHAAYAAAAAAA0AAAAIAAYAAAAAAA0AAAAJAAYAAAAAAA0AAAAKAAYAAAAAAA0AAAALAAYAAAAAAA0AAAAMAAYAAAAAAA0AAAANAAYAAAAAAA0AAAA=")
 tile_set = SubResource("TileSet_skpq5")
 
-[node name="Player" parent="." instance=ExtResource("1_fdvmw")]
-position = Vector2(-46, 32)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(1, -7)
-zoom = Vector2(4, 4)
-limit_bottom = 120
-limit_smoothed = true
-position_smoothing_enabled = true
-
-[node name="Coin" parent="." instance=ExtResource("4_lpes3")]
-position = Vector2(-69, 24)
-
-[node name="Killzone" parent="." instance=ExtResource("4_u00r0")]
+[node name="Killzone" parent="." instance=ExtResource("6_hq6v5")]
 position = Vector2(-6, 135)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
@@ -270,10 +245,10 @@ shape = SubResource("WorldBoundaryShape2D_nebgw")
 
 [node name="Platforms" type="Node" parent="."]
 
-[node name="Platform" parent="Platforms" instance=ExtResource("3_wl74w")]
+[node name="Platform" parent="Platforms" instance=ExtResource("7_mnxm6")]
 position = Vector2(70, -12)
 
-[node name="Platform2" parent="Platforms" instance=ExtResource("3_wl74w")]
+[node name="Platform2" parent="Platforms" instance=ExtResource("7_mnxm6")]
 position = Vector2(197, 28)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/Platform2"]
@@ -281,9 +256,6 @@ libraries = {
 "": SubResource("AnimationLibrary_mugk7")
 }
 autoplay = "Move"
-
-[node name="Slime" parent="." instance=ExtResource("6_3dwed")]
-position = Vector2(-23, 49)
 
 [node name="Labels" type="Node" parent="."]
 
@@ -293,6 +265,15 @@ offset_top = -87.0
 offset_right = -4.0
 offset_bottom = -37.0
 theme_override_colors/font_color = Color(0.4, 0.741176, 0.498039, 1)
-theme_override_fonts/font = ExtResource("2_je5kt")
+theme_override_fonts/font = ExtResource("2_cfwxx")
 theme_override_font_sizes/font_size = 8
 text = "Space to jump"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="Player1" parent="." instance=ExtResource("8_urnp1")]
+position = Vector2(-151, 64)
+
+[node name="Player2" parent="." instance=ExtResource("9_4lhlx")]
+position = Vector2(-62, 61)
