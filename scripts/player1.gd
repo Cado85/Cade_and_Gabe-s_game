@@ -6,7 +6,8 @@ const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var sword_collision: CollisionShape2D= $SwordCollision
+@onready var sword_collision: CollisionShape2D= $Area2D/SwordCollision
+@onready var sword_area: Area2D= $Area2D
 
 var is_attacking: bool = false #Flag to check whether the player is attacking
 
@@ -78,10 +79,18 @@ func _physics_process(delta: float) -> void:
 		attack()
 
 	
-	
+
+func player1():
+	pass
 	
 
 func _on_animated_sprite_2d_animation_finished():
 	if animated_sprite.animation == "attack":
 		is_attacking = false # Reset attack state after animation completes
 		sword_collision.disabled = true # Disable sword collision after attack
+
+
+func _on_area_2d_body_entered(body):
+	if body.has_method("player2"):
+		GameManager.player1_hit = true
+		print("hit")

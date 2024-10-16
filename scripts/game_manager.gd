@@ -2,6 +2,9 @@ extends Node
 
 var score = 0
 
+var player1_hit = false
+var player2_hit = false
+
 @onready var score_label = $ScoreLabel
 
 
