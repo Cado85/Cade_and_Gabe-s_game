@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://s37st3crdok"]
+[gd_scene load_steps=30 format=3 uid="uid://s37st3crdok"]
 
 [ext_resource type="Texture2D" uid="uid://m7lrwbbfii2u" path="res://assets/sprites/Player_Attack.png" id="2_cr8td"]
 [ext_resource type="Script" path="res://scripts/player1.gd" id="2_x3mxs"]
@@ -195,6 +195,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_dy25u"]
 radius = 7.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v8w6v"]
+size = Vector2(7, 3)
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("2_x3mxs")
@@ -209,5 +212,10 @@ autoplay = "idle"
 z_index = 5
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_dy25u")
+
+[node name="SwordCollision" type="CollisionShape2D" parent="."]
+position = Vector2(14.5, -7.5)
+shape = SubResource("RectangleShape2D_v8w6v")
+disabled = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
