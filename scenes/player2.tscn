@@ -121,7 +121,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7pg3d")
 }],
-"loop": true,
+"loop": false,
 "name": &"damaged",
 "speed": 5.0
 }, {

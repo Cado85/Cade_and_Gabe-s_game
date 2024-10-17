@@ -26,7 +26,7 @@ func attack() -> void:
 # Play the damage animation and apply knockback
 func play_damage_animation() -> void:
 	animated_sprite.play("damaged") # Play the damaged animation
-	
+
 	
 func _physics_process(delta: float) -> void:
 	if GameManager.player1_hit == true:
