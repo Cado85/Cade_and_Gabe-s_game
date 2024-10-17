@@ -92,5 +92,5 @@ func _on_animated_sprite_2d_animation_finished():
 
 func _on_area_2d_body_entered(body):
 	if body.has_method("player2"):
-		GameManager.player1_hit = true
+		GameManager.player1_hits = true
 		print("hit")

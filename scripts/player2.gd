@@ -10,7 +10,10 @@ var movement = Vector2(0,0)
 const DAMAGE_KNOCKBACK = 200.0
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var sword_collision: CollisionShape2D= $SwordHitbox/SwordCollsion
+@onready var char_collision: CollisionShape2D= $CollisionShape2D
+@onready var sword_collision: CollisionShape2D= $SwordHitbox/SwordCollision
+@onready var invincibility_timer: Timer = $InvincibilityTimer
+
 
 var is_attacking: bool = false #Flag to check whether the player is attacking
 var is_damaged: bool = false
@@ -24,10 +27,42 @@ func attack() -> void:
 	
 	
 
+# Function to activate invincibility
+func invincibility() -> void:
+	if not is_invincible:
+		is_invincible = true
+		#char_collision.disabled = true  # Disable collision
+		invincibility_timer.start()  # Start the 3-second timer
+		print("Invincibility activated!")
+
+
+# This function will be called when the timer finishes
+func _on_invincibility_timer_timeout():
+	is_invincible = false
+	#char_collision.disabled = false  # Enable collision
+	animated_sprite.stop()  # Stop the damage animation when invincibility ends
+	print("Invincibility ended!")
+	
+	# Reset the damage flag
+	is_damaged = false
+	
+	# Reset animation to idle or run depending on current movement
+	if is_on_floor():
+		if velocity.x == 0:
+			animated_sprite.play("idle")  # Return to idle if not moving
+		else:
+			animated_sprite.play("run")  # Return to run if moving
+	else:
+		animated_sprite.play("jump")  # If player is mid-air
+		
+
 # Play the damage animation and apply knockback
 func play_damage_animation() -> void:
-	is_invincible = true
-	animated_sprite.play("damaged") # Play the damaged animation
+	if not is_invincible:  # Only start invincibility if not already invincible
+		is_damaged = true
+		invincibility()  # Activate invincibility when taking damage
+		animated_sprite.play("damaged")  # Play the damaged animation
+
 
 
 
