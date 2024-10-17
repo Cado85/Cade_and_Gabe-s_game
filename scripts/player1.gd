@@ -54,9 +54,11 @@ func _physics_process(delta: float) -> void:
 	if direction > 0:
 		animated_sprite.flip_h = false
 		sword_collision.position.x = abs(sword_collision.position.x) # Move sword collider to the right side
+		GameManager.p1_sword_pos_right = true
 	elif direction < 0:
 		animated_sprite.flip_h = true
 		sword_collision.position.x = -abs(sword_collision.position.x) # Move sword collider to the left side
+		GameManager.p1_sword_pos_right = false
 		
 		#Play animations
 	if is_on_floor():

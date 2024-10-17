@@ -67,7 +67,7 @@ func play_damage_animation() -> void:
 		invincibility()  # Activate invincibility when taking damage
 		animated_sprite.play("damaged")  # Play the damaged animation
 	# Apply knockback depending on direction
-		if animated_sprite.flip_h:  # If facing left
+		if GameManager.p1_sword_pos_right == true:  # If facing left
 			knockback_velocity.x = DAMAGE_KNOCKBACK  # Push to the right
 		else:  # If facing right
 			knockback_velocity.x = -DAMAGE_KNOCKBACK  # Push to the left
