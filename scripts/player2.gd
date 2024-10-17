@@ -14,6 +14,7 @@ const DAMAGE_KNOCKBACK = 200.0
 
 var is_attacking: bool = false #Flag to check whether the player is attacking
 var is_damaged: bool = false
+var is_invincible: bool = false
 
 #Play attack animation
 func attack() -> void:
@@ -25,16 +26,19 @@ func attack() -> void:
 
 # Play the damage animation and apply knockback
 func play_damage_animation() -> void:
+	is_invincible = true
 	animated_sprite.play("damaged") # Play the damaged animation
+
+
 
 	
 func _physics_process(delta: float) -> void:
-	if GameManager.player1_hit == true:
+	if GameManager.player1_hits == true:
 		play_damage_animation()
 		is_damaged = true
 		health -= 1
 		print(health)
-		GameManager.player1_hit = false
+		GameManager.player1_hits = false
 
 		
 	if health <= 0:
