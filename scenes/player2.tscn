@@ -232,7 +232,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"damaged",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -396,10 +396,8 @@ script = ExtResource("2_txp88")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_8vag3")
-animation = &"death"
+animation = &"damaged"
 autoplay = "idle"
-frame = 26
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 5
@@ -421,7 +419,7 @@ shape = SubResource("RectangleShape2D_hql3x")
 disabled = true
 
 [node name="InvincibilityTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 1.5
 one_shot = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

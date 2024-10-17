@@ -7,13 +7,15 @@ const JUMP_VELOCITY = -300.0
 
 var movement = Vector2(0,0)
 
-const DAMAGE_KNOCKBACK = 200.0
+const DAMAGE_KNOCKBACK = 1000.0
+const KNOCKBACK_DECAY = 500.0  # How quickly the knockback reduces (higher = faster slowdown)
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var char_collision: CollisionShape2D= $CollisionShape2D
 @onready var sword_collision: CollisionShape2D= $SwordHitbox/SwordCollision
 @onready var invincibility_timer: Timer = $InvincibilityTimer
 
+var knockback_velocity: Vector2 = Vector2.ZERO  # Separate velocity for knockback effects
 
 var is_attacking: bool = false #Flag to check whether the player is attacking
 var is_damaged: bool = false
@@ -35,6 +37,7 @@ func invincibility() -> void:
 		#char_collision.disabled = true  # Disable collision
 		invincibility_timer.start()  # Start the 3-second timer
 		print("Invincibility activated!")
+
 
 
 # This function will be called when the timer finishes
@@ -63,6 +66,19 @@ func play_damage_animation() -> void:
 		is_damaged = true
 		invincibility()  # Activate invincibility when taking damage
 		animated_sprite.play("damaged")  # Play the damaged animation
+	# Apply knockback depending on direction
+		if animated_sprite.flip_h:  # If facing left
+			knockback_velocity.x = DAMAGE_KNOCKBACK  # Push to the right
+		else:  # If facing right
+			knockback_velocity.x = -DAMAGE_KNOCKBACK  # Push to the left
+		
+		# Apply a vertical knockback (small jump)
+		knockback_velocity.y = JUMP_VELOCITY / 2
+		
+		# Immediately apply the knockback force to the velocity
+		velocity.x = knockback_velocity.x
+		velocity.y = knockback_velocity.y
+
 
 func die():
 	if not is_dead:
@@ -87,6 +103,8 @@ func _physics_process(delta: float) -> void:
 	if health <= 0:
 		die()
 		return # Return early to stop other processes
+	
+
 		
 	# Add the gravity.
 	if not is_on_floor():
@@ -126,14 +144,15 @@ func _physics_process(delta: float) -> void:
 		animated_sprite.flip_h = true
 		sword_collision.position.x = -abs(sword_collision.position.x) # Move sword collider to the left side
 		
-		#Play animations
-	if is_on_floor():
-		if direction == 0 and not is_attacking and not is_damaged:
-			animated_sprite.play("idle")
-		elif direction > 0 or direction < 0 and not is_attacking and not is_damaged:
-			animated_sprite.play("run")
-	else:
-		animated_sprite.play("jump")
+		#Play animations only if the player is not damaged
+	if not is_damaged:
+		if is_on_floor():
+			if direction == 0 and not is_attacking and not is_damaged:
+				animated_sprite.play("idle")
+			elif direction > 0 or direction < 0 and not is_attacking and not is_damaged:
+				animated_sprite.play("run")
+		else:
+			animated_sprite.play("jump")
 		
 	#Apply Movement
 	if direction:
