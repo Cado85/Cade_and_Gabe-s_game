@@ -7,7 +7,7 @@ const JUMP_VELOCITY = -300.0
 
 var movement = Vector2(0,0)
 
-const DAMAGE_KNOCKBACK = 200.0
+const DAMAGE_KNOCKBACK = 1000.0
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var char_collision: CollisionShape2D= $CollisionShape2D
@@ -37,6 +37,7 @@ func invincibility() -> void:
 		print("Invincibility activated!")
 		
 		
+		
 # This function will be called when the timer finishes
 func _on_invincibility_timer_timeout():
 	if not is_dead:
@@ -63,6 +64,8 @@ func _on_invincibility_timer_timeout():
 # Play the damage animation and apply knockback
 func play_damage_animation() -> void:
 	if not is_invincible:  # Only start invincibility if not already invincible
+		velocity.x = DAMAGE_KNOCKBACK
+		
 		is_damaged = true
 		invincibility()  # Activate invincibility when taking damage
 		animated_sprite.play("damaged")  # Play the damaged animation
@@ -82,6 +85,8 @@ func _physics_process(delta: float) -> void:
 		return #Do nothing, player died!
 		
 	if GameManager.player1_hits == true:
+
+		
 		play_damage_animation()
 		is_damaged = true
 		health -= 1
@@ -94,8 +99,8 @@ func _physics_process(delta: float) -> void:
 		return # Return early to stop other processes
 	
 	# Disable movement if the player is damaged
-	if is_damaged:
-		return # Do nothing, player is damaged!
+	#if is_damaged:
+		#return # Do nothing, player is damaged!
 			
 	# Add the gravity.
 	if not is_on_floor():
@@ -142,7 +147,8 @@ func _physics_process(delta: float) -> void:
 		elif direction > 0 or direction < 0 and not is_attacking and not is_damaged:
 			animated_sprite.play("run")
 	else:
-		animated_sprite.play("jump")
+		if not is_invincible:
+			animated_sprite.play("jump")
 		
 	#Apply Movement
 	if direction:
