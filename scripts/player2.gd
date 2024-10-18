@@ -92,7 +92,11 @@ func _physics_process(delta: float) -> void:
 	if health <= 0:
 		die()
 		return # Return early to stop other processes
-		
+	
+	# Disable movement if the player is damaged
+	if is_damaged:
+		return # Do nothing, player is damaged!
+			
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
