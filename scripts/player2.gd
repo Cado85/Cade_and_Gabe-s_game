@@ -11,7 +11,7 @@ const DAMAGE_KNOCKBACK = 1000.0
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var char_collision: CollisionShape2D= $CollisionShape2D
-@onready var sword_collision: CollisionShape2D= $SwordHitbox/SwordCollision
+@onready var sword_collision: CollisionShape2D= $Area2D/SwordCollision
 @onready var invincibility_timer: Timer = $InvincibilityTimer
 
 
@@ -19,6 +19,7 @@ var is_attacking: bool = false #Flag to check whether the player is attacking
 var is_damaged: bool = false
 var is_invincible: bool = false
 var is_dead: bool = false
+var facing_right: bool = false
 
 #Play attack animation
 func attack() -> void:
@@ -44,7 +45,7 @@ func _on_invincibility_timer_timeout():
 		is_invincible = false
 		#char_collision.disabled = false  # Enable collision
 		animated_sprite.stop()  # Stop the damage animation when invincibility ends
-		print("Invincibility ended!")
+		print("Invincibility ended! Player2")
 	
 		# Reset the damage flag
 		is_damaged = false
@@ -64,7 +65,10 @@ func _on_invincibility_timer_timeout():
 # Play the damage animation and apply knockback
 func play_damage_animation() -> void:
 	if not is_invincible:  # Only start invincibility if not already invincible
-		velocity.x = DAMAGE_KNOCKBACK
+		if facing_right == true:	
+			velocity.x = -DAMAGE_KNOCKBACK
+		else:
+			velocity.x = DAMAGE_KNOCKBACK
 		
 		is_damaged = true
 		invincibility()  # Activate invincibility when taking damage
@@ -134,9 +138,11 @@ func _physics_process(delta: float) -> void:
 	
 	#Flip the Sprite
 	if direction > 0:
+		facing_right = true
 		animated_sprite.flip_h = false
 		sword_collision.position.x = abs(sword_collision.position.x) # Move sword collider to the right side
 	elif direction < 0:
+		facing_right = false
 		animated_sprite.flip_h = true
 		sword_collision.position.x = -abs(sword_collision.position.x) # Move sword collider to the left side
 		
@@ -172,3 +178,9 @@ func _on_animated_sprite_2d_animation_finished():
 		sword_collision.disabled = true # Disable sword collision after attack
 	if animated_sprite.animation == "death":
 		queue_free()
+
+
+func _on_area_2d_body_entered(body):
+	if body.has_method("player1"):
+		GameManager.player2_hits = true
+		print("hit")
