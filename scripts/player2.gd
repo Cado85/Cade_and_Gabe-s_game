@@ -18,6 +18,7 @@ const DAMAGE_KNOCKBACK = 200.0
 var is_attacking: bool = false #Flag to check whether the player is attacking
 var is_damaged: bool = false
 var is_invincible: bool = false
+var is_dead: bool = false
 
 #Play attack animation
 func attack() -> void:
@@ -34,26 +35,29 @@ func invincibility() -> void:
 		#char_collision.disabled = true  # Disable collision
 		invincibility_timer.start()  # Start the 3-second timer
 		print("Invincibility activated!")
-
-
+		
+		
 # This function will be called when the timer finishes
 func _on_invincibility_timer_timeout():
-	is_invincible = false
-	#char_collision.disabled = false  # Enable collision
-	animated_sprite.stop()  # Stop the damage animation when invincibility ends
-	print("Invincibility ended!")
+	if not is_dead:
+		is_invincible = false
+		#char_collision.disabled = false  # Enable collision
+		animated_sprite.stop()  # Stop the damage animation when invincibility ends
+		print("Invincibility ended!")
 	
-	# Reset the damage flag
-	is_damaged = false
+		# Reset the damage flag
+		is_damaged = false
 	
-	# Reset animation to idle or run depending on current movement
-	if is_on_floor():
-		if velocity.x == 0:
-			animated_sprite.play("idle")  # Return to idle if not moving
+		# Reset animation to idle or run depending on current movement
+		if is_on_floor():
+			if velocity.x == 0:
+				animated_sprite.play("idle")  # Return to idle if not moving
+			else:
+				animated_sprite.play("run")  # Return to run if moving
 		else:
-			animated_sprite.play("run")  # Return to run if moving
-	else:
-		animated_sprite.play("jump")  # If player is mid-air
+			animated_sprite.play("jump")  # If player is mid-air
+	
+	
 		
 
 # Play the damage animation and apply knockback
@@ -64,10 +68,19 @@ func play_damage_animation() -> void:
 		animated_sprite.play("damaged")  # Play the damaged animation
 
 
-
+func die():
+	if not is_dead:
+		is_dead = true
+		velocity = Vector2.ZERO #Stop player movement
+		animated_sprite.play("death") #Death animation
+		print("Player 2 has died!")
+		
 
 	
 func _physics_process(delta: float) -> void:
+	if is_dead:
+		return #Do nothing, player died!
+		
 	if GameManager.player1_hits == true:
 		play_damage_animation()
 		is_damaged = true
@@ -77,7 +90,8 @@ func _physics_process(delta: float) -> void:
 
 		
 	if health <= 0:
-		queue_free()
+		die()
+		return # Return early to stop other processes
 		
 	# Add the gravity.
 	if not is_on_floor():
@@ -141,9 +155,10 @@ func _physics_process(delta: float) -> void:
 func player2():
 	pass
 
-
 		
 func _on_animated_sprite_2d_animation_finished():
 	if animated_sprite.animation == "attack":
 		is_attacking = false # Reset attack state after animation completes
 		sword_collision.disabled = true # Disable sword collision after attack
+	if animated_sprite.animation == "death":
+		queue_free()
