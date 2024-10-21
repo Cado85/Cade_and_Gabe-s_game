@@ -220,6 +220,16 @@ animations = [{
 "name": &"attack",
 "speed": 20.0
 }, {
+"frames": [],
+"loop": true,
+"name": &"attack_1",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"attack_2",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jv6wv")
@@ -337,6 +347,16 @@ animations = [{
 "name": &"idle",
 "speed": 5.0
 }, {
+"frames": [],
+"loop": true,
+"name": &"idle_1",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"idle_2",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hkguk")
@@ -353,6 +373,16 @@ animations = [{
 "loop": true,
 "name": &"jump",
 "speed": 10.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"jump_1",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"jump_2",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -382,6 +412,16 @@ animations = [{
 "loop": true,
 "name": &"run",
 "speed": 10.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"run_1",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"run_2",
+"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dy25u"]
@@ -396,10 +436,8 @@ script = ExtResource("2_txp88")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_8vag3")
-animation = &"death"
+animation = &"run_1"
 autoplay = "idle"
-frame = 26
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 5
