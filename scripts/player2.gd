@@ -178,12 +178,21 @@ func player2():
 
 		
 func _on_animated_sprite_2d_animation_finished():
-	if animated_sprite.animation == "attack":
-		is_attacking = false # Reset attack state after animation completes
-		sword_collision.disabled = true # Disable sword collision after attack
-	if animated_sprite.animation == "death":
-		queue_free()
+	if animated_sprite.animation in ["attack", "attack_2", "attack_1"]:
+		is_attacking = false  # Reset attack state after animation completes
+		sword_collision.disabled = true  # Disable sword collision after attack
+		reset_animation_based_on_state()  # Update animation to match current state (idle, run, or jump)
+	elif animated_sprite.animation == "death":
+		queue_free()  # Remove the player from the game
 
+func reset_animation_based_on_state():
+	if is_on_floor():
+		if velocity.x == 0:
+			animated_sprite.play("idle_2" if health == 2 else "idle_1" if health == 1 else "idle")
+		else:
+			animated_sprite.play("run_2" if health == 2 else "run_1" if health == 1 else "run")
+	else:
+		animated_sprite.play("jump_2" if health == 2 else "jump_1" if health == 1 else "jump")
 
 func _on_area_2d_body_entered(body):
 	if body.has_method("player1"):
