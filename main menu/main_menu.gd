@@ -6,8 +6,8 @@ extends Control
 @onready var button_3: Button = $MarginContainer/HBoxContainer/VBoxContainer/Button3
 @onready var exit_button: Button = $MarginContainer/HBoxContainer/VBoxContainer/Exit_Button as Button
 @onready var start_level_1 = preload("res://scenes/Level_1.tscn") as PackedScene
-@onready var start_level_2 = preload("res://scenes/sample_level.tscn") as PackedScene
-@onready var start_level_3 = preload("res://scenes/sample_level.tscn") as PackedScene
+@onready var start_level_2 = preload("res://scenes/Level_2.tscn") as PackedScene
+@onready var start_level_3 = preload("res://scenes/Level_3.tscn") as PackedScene
 
 func _ready():
 	button.button_down.connect(on_button_pressed)
