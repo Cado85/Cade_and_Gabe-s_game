@@ -55,5 +55,5 @@ animations = [{
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_q8kjg")
-frame_progress = 0.063197
+frame_progress = 0.173384
 script = ExtResource("2_rmwgv")
