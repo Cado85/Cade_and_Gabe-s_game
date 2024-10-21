@@ -221,12 +221,12 @@ animations = [{
 "speed": 20.0
 }, {
 "frames": [],
-"loop": true,
+"loop": false,
 "name": &"attack_1",
 "speed": 5.0
 }, {
 "frames": [],
-"loop": true,
+"loop": false,
 "name": &"attack_2",
 "speed": 5.0
 }, {
@@ -436,7 +436,7 @@ script = ExtResource("2_txp88")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_8vag3")
-animation = &"run_1"
+animation = &"death"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
