@@ -21,11 +21,25 @@ var is_invincible: bool = false
 var is_dead: bool = false
 var facing_right: bool = false
 
+# Function to update animation set based on health
+func update_animation_set() -> void:
+	if health == 2:
+		animated_sprite.animation = "idle_2"
+	elif health == 1:
+		animated_sprite.animation = "idle_1"
+	else:
+		animated_sprite.animation = "idle"
+
 #Play attack animation
 func attack() -> void:
 	is_attacking = true
-	animated_sprite.play("attack")
-	attack_frame = 0 #Reset Attack Frame
+	attack_frame = 0  # Reset Attack Frame
+	if health == 3:
+		animated_sprite.play("attack")
+	elif health == 2:
+		animated_sprite.play("attack_2")
+	elif health == 1:
+		animated_sprite.play("attack_1")
 	
 	
 
@@ -102,7 +116,7 @@ func _physics_process(delta: float) -> void:
 	if is_attacking:
 		# Only handle attack frame logic when attacking
 		# Check current frame of attack animation and enable/disable sword collision
-		if animated_sprite.animation == "attack":
+		if animated_sprite.animation == "attack": #fix
 			attack_frame = animated_sprite.frame
 			
 			# Enable sword collision on frames 3 and 4
@@ -130,12 +144,12 @@ func _physics_process(delta: float) -> void:
 		#Play animations
 	if is_on_floor():
 		if direction == 0 and not is_attacking and not is_damaged:
-			animated_sprite.play("idle")
+			animated_sprite.play("idle_2" if health == 2 else "idle_1" if health == 1 else "idle")
 		elif direction > 0 or direction < 0 and not is_attacking and not is_damaged:
-			animated_sprite.play("run")
+			animated_sprite.play("run_2" if health == 2 else "run_1" if health == 1 else "run")
 	else:
 		if not is_invincible:
-			animated_sprite.play("jump")
+			animated_sprite.play("jump_2" if health == 2 else "jump_1" if health == 1 else "jump")
 		
 	#Apply Movement
 	if direction:
@@ -177,11 +191,11 @@ func _on_invincibility_timer_timeout():
 		# Reset the damage flag
 		is_damaged = false
 	
-		# Reset animation to idle or run depending on current movement
-		if is_on_floor():
-			if velocity.x == 0:
-				animated_sprite.play("idle")  # Return to idle if not moving
-			else:
-				animated_sprite.play("run")  # Return to run if moving
+# Reset animation to idle, run, or jump depending on movement and health
+	if is_on_floor():
+		if velocity.x == 0:
+			animated_sprite.play("idle_2" if health == 2 else "idle_1" if health == 1 else "idle")  # Idle based on health
 		else:
-			animated_sprite.play("jump")  # If player is mid-air
+			animated_sprite.play("run_2" if health == 2 else "run_1" if health == 1 else "run")  # Run based on health
+	else:
+		animated_sprite.play("jump_2" if health == 2 else "jump_1" if health == 1 else "jump")  # Jump based on health
