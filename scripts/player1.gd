@@ -116,7 +116,7 @@ func _physics_process(delta: float) -> void:
 	if is_attacking:
 		# Only handle attack frame logic when attacking
 		# Check current frame of attack animation and enable/disable sword collision
-		if animated_sprite.animation == "attack": #fix
+		if animated_sprite.animation in ["attack", "attack_2", "attack_1"]: #fix
 			attack_frame = animated_sprite.frame
 			
 			# Enable sword collision on frames 3 and 4
