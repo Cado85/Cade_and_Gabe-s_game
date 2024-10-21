@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://iggvhpawlya0" path="res://scenes/player2.tscn" id="7_61pux"]
 [ext_resource type="PackedScene" uid="uid://b5o2cbvmwjdph" path="res://scenes/SpikeTrap.tscn" id="8_a5x0k"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k04e0"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kilwq"]
 texture = ExtResource("2_iptxr")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -172,7 +172,7 @@ texture = ExtResource("2_iptxr")
 
 [sub_resource type="TileSet" id="TileSet_skpq5"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_k04e0")
+sources/0 = SubResource("TileSetAtlasSource_kilwq")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_nebgw"]
 
