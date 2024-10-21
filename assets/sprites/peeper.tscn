@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://dsmni627gtgpm"]
+
+[ext_resource type="Texture2D" uid="uid://coh60xktdh6yp" path="res://assets/sprites/Dungeon (1).png" id="1_c5vyt"]
+[ext_resource type="Script" path="res://assets/sprites/animated_sprite_2d.gd" id="2_da54q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c2f7v"]
+atlas = ExtResource("1_c5vyt")
+region = Rect2(80, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hes88"]
+atlas = ExtResource("1_c5vyt")
+region = Rect2(64, 80, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ovos5"]
+animations = [{
+"frames": [{
+"duration": 20.0,
+"texture": SubResource("AtlasTexture_c2f7v")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_hes88")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_c2f7v")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_hes88")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[node name="Peeper" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ovos5")
+frame_progress = 0.025978
+script = ExtResource("2_da54q")
