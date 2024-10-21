@@ -44,7 +44,7 @@ layout_mode = 2
 theme_override_constants/outline_size = 20
 theme_override_fonts/font = ExtResource("2_uymd4")
 theme_override_font_sizes/font_size = 64
-text = "MEDIEVAL ARENA 2D"
+text = "SQUIRE SHOWDOWN"
 horizontal_alignment = 1
 vertical_alignment = 1
 
