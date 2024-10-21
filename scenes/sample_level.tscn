@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=4 uid="uid://dwnqb67vobrg3"]
+[gd_scene load_steps=15 format=4 uid="uid://dwnqb67vobrg3"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_83sy0"]
 [ext_resource type="FontFile" uid="uid://ch5vmdymlxiht" path="res://assets/fonts/PixelOperator8.ttf" id="2_cfwxx"]
 [ext_resource type="Texture2D" uid="uid://b1rbx1h4f2tx6" path="res://assets/sprites/world_tileset.png" id="3_6165f"]
 [ext_resource type="PackedScene" uid="uid://dl26v1pc4bsru" path="res://scenes/killzone.tscn" id="6_hq6v5"]
 [ext_resource type="PackedScene" uid="uid://dqcq73wpst1lp" path="res://scenes/platform.tscn" id="7_mnxm6"]
+[ext_resource type="PackedScene" uid="uid://b5o2cbvmwjdph" path="res://scenes/SpikeTrap.tscn" id="8_moa4t"]
 [ext_resource type="PackedScene" uid="uid://s37st3crdok" path="res://scenes/player1.tscn" id="8_urnp1"]
 [ext_resource type="PackedScene" uid="uid://iggvhpawlya0" path="res://scenes/player2.tscn" id="9_4lhlx"]
 
@@ -277,3 +278,6 @@ position = Vector2(-151, 64)
 
 [node name="Player2" parent="." instance=ExtResource("9_4lhlx")]
 position = Vector2(-62, 61)
+
+[node name="Area2D" parent="." instance=ExtResource("8_moa4t")]
+position = Vector2(-31, 75)

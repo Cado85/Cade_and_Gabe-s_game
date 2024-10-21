@@ -1,0 +1,93 @@
+[gd_scene load_steps=8 format=3 uid="uid://b5o2cbvmwjdph"]
+
+[ext_resource type="Texture2D" uid="uid://ce6q1rv8dae5h" path="res://assets/sprites/slime_purple.png" id="1_0ds3o"]
+[ext_resource type="Script" path="res://scenes/spike_trap.gd" id="1_jfcfb"]
+[ext_resource type="PackedScene" uid="uid://dl26v1pc4bsru" path="res://scenes/killzone.tscn" id="3_tdrvt"]
+
+[sub_resource type="Animation" id="Animation_syl2w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Killzone/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_qd7cd"]
+resource_name = "SpikeTrigger"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 5, 6, 5, 4, 3, 2, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Killzone/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2mjh1"]
+_data = {
+"RESET": SubResource("Animation_syl2w"),
+"SpikeTrigger": SubResource("Animation_qd7cd")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nkb71"]
+size = Vector2(14, 14)
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_jfcfb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_0ds3o")
+hframes = 4
+vframes = 3
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2mjh1")
+}
+
+[node name="Killzone" parent="." instance=ExtResource("3_tdrvt")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_nkb71")
+disabled = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
