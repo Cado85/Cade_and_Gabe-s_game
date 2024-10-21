@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://bkcdd7d07xjls"]
+[gd_scene load_steps=11 format=4 uid="uid://c4htd7ou10aof"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_obyxv"]
 [ext_resource type="Texture2D" uid="uid://b1rbx1h4f2tx6" path="res://assets/sprites/world_tileset.png" id="2_v2ii7"]
